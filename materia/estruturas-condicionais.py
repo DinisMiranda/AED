@@ -24,12 +24,3 @@ else:
 # Exemplo com match-case
 # Disponível a partir do Python 3.10
 dia = "segunda"
-match dia:
-    case "segunda":
-        print("Hoje é segunda-feira")
-    case "terça":
-        print("Hoje é terça-feira")
-    case "quarta" | "quinta":
-        print("Hoje é meio da semana")
-    case _:
-        print("Outro dia qualquer")

@@ -1,30 +1,6 @@
 import customtkinter
 import os
 
-#Obter texto
-def guardarTexto():
-    caminho="AED git/Ficha9/"
-    texto=textboxNotas.get("0.0", "end")
-    fileText=open(caminho+"texto.txt", "w", encoding="utf-8")
-    print(texto)
-    fileText.write(texto)
-    fileText.close()
-
-#Limpar texto
-def limparTexto():
-    limpar=textboxNotas.delete("0.0", "end")
-
-
-#Ler texto
-def lerTexto():
-    caminho="AED git/Ficha9/texto.txt"
-    f = open(caminho, "r")
-    limpar=textboxNotas.delete("0.0", "end")
-    lines = f.readlines()
-    f.close()
-    for line in lines: 
-        textboxNotas.insert("end", line)
-
 
 #Abrir app
 app = customtkinter.CTk()
@@ -54,8 +30,10 @@ textboxNotas.place(x=30, y=30)
 #Buttons
 buttonGuardar = customtkinter.CTkButton(app, width=250, height=50, bg_color="black", text="Guardar", text_color="blue", command=guardarTexto)
 buttonGuardar.place(x=30, y=350)
+
 buttonLimpar = customtkinter.CTkButton(app, width=250, height=50, bg_color="black", text="Limpar", text_color="red",  command=limparTexto)
 buttonLimpar.place(x=30, y=420)
+
 buttonLer = customtkinter.CTkButton(app, width=250, height=50, bg_color="black", text="Ler bloco de notas", text_color="blue",  command=lerTexto)
 buttonLer.place(x=30, y=490)
 
