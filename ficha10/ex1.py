@@ -4,21 +4,160 @@ import CTkMessagebox
 from tkinter import ttk # treeview
 from PIL import Image, ImageTk
 
+  #Funçoes
+
+
 
 def gerirPresenças():
-    print("Gerir Presenças")
+  frameGerir = customtkinter.CTkFrame(app, width=750, height=500, fg_color="grey")
+  frameGerir.place(x=250)
+
+  #caixas de texto
+  entryNum = customtkinter.CTkEntry(app, placeholder_text="Número de estudante", width=150);
+  entryNum.place(x=450, y=60)
+  #entryType = customtkinter.CTkEntry(app, placeholder_text="Tipo de movimento", width=150);
+  #entryType.place(x=320, y=120)
+  #entry1 = customtkinter.CTkEntry(app, placeholder_text="Histórico de movimento", width=150);
+  #entry1.place(x=750, y=40)
+  
+  #Labels
+  labelNum = customtkinter.CTkLabel(app, text="Número de estudante:", font= ("Arial", 12),
+                                     fg_color="transparent", text_color="white");
+  labelNum.place(x=320, y=60)
+  label1 = customtkinter.CTkLabel(app, text="Histórico de movimento:", font= ("Arial", 12),
+                                  fg_color="transparent", text_color="white");
+  label1.place(x=750, y=40)
+  label2 = customtkinter.CTkLabel(app, text="Tipo de movimento:", font= ("Arial", 12),
+                                  fg_color="transparent", text_color="white");
+  label2.place(x=320, y=120)
+
+
+
+  #Textbox
+  textboxNotas = customtkinter.CTkTextbox(app, width=300, height=300, border_color="grey")
+  textboxNotas.place(x=675, y=80)
+
+  #Button
+  buttonLer = customtkinter.CTkButton(frameGerir, text="Ler Ficheiro",
+                                       text_color="white", bg_color="blue",
+                                         width=250, height=50)
+  buttonLer.place(x=450, y=400)
+
+  buttonRegistar = customtkinter.CTkButton(frameGerir, text="Registar Movimento em Ficheiro",
+                                            fg_color="black", text_color="blue",
+                                              width=250, height=150)
+  buttonRegistar.place(x=75, y=250)
+
+
+  #CheckBox
+  checkVar1 = customtkinter.StringVar(value="on")
+  checkVar2 = customtkinter.StringVar(value="off")
+
+  checkboxEntrada = customtkinter.CTkCheckBox(app, text="Entrada", variable=checkVar1, onvalue="on",
+                                               offvalue="off", bg_color="black")
+  checkboxSaida = customtkinter.CTkCheckBox(app, text="Saida", variable=checkVar2, onvalue="on",
+                                             offvalue="off", bg_color="black")
+
+  checkboxEntrada.place(x=500, y=120)
+  checkboxSaida.place(x=500, y=170)
+
+  #tree
+  frameTree = customtkinter.CTkFrame(frameConsultar, width = 690, height = 500)
+  frameTree.place(x=20, y=170)
+
+  # TreeView para consulta de movimentos
+  tree = ttk.Treeview(frameTree, height = 16, selectmode = "browse", columns = ("Número", "Data", "Hora", "Movimento"), show = "headings")
+
+  tree.column("Número", width = 160,  anchor="c")
+  tree.column("Data", width = 160,     anchor="c")        # C- center
+  tree.column("Hora", width = 160,     anchor="c")        # E - direita
+  tree.column("Movimento", width = 200, anchor="c")       # W- esquerda
+  tree.heading("Número", text = "Número")
+  tree.heading("Data", text = "Data")
+  tree.heading("Hora", text = "Hora")
+  tree.heading("Movimento", text = "Movimento")
+  tree.place(x= 70, y=15)
+
+  # Scrollbar Vertical
+  verscrlbar = ttk.Scrollbar(frameTree, orient ="vertical", command = tree.yview)
+  # CallinPlace da Scrollbar
+  verscrlbar.place(x=735, y=16, height=330)
+  # Adicionar scrollbar à  treeview
+  tree.configure(yscrollcommand = verscrlbar.set)
+
+
+
+
 
 def consultarPresenças():
-    print("Consultar Presenças")
+  frameGerir = customtkinter.CTkFrame(app, width=750, height=500, bg_color="grey")
+  frameGerir.place(x=250)
+
+  frameMovimentos = customtkinter.CTkFrame(app, width=220, height=100, fg_color="black")
+  frameMovimentos.place(x=270)
+
+  frameNumero = customtkinter.CTkFrame(app, width=220, height=100, fg_color="black")
+  frameNumero.place(x=500)
+
+#Labels
+  label3 = customtkinter.CTkLabel(app, text="Tipo de movimento:", font= ("Arial", 12),
+                                  fg_color="transparent", text_color="white");
+  label3.place(x=330, y=10)
+
+  label4 = customtkinter.CTkLabel(app, text="Número de estudante:", font= ("Arial", 12),
+                                  fg_color="transparent", text_color="white");
+  label4.place(x=550, y=10)
+
+  checkVar1 = customtkinter.StringVar(value="on")
+  checkVar2 = customtkinter.StringVar(value="off")
+
+
+  #caixas de texto
+  entryNum = customtkinter.CTkEntry(app, placeholder_text="Número de estudante", width=150);
+  entryNum.place(x=530, y=60)
+
+  #button
+  buttonMovimento = customtkinter.CTkButton(app, text="", image=imgLupa, width=220, height=100)
+  buttonMovimento.place(x=730)
+
+
+
+#CheckBox
+  checkBoxEntrada = customtkinter.CTkCheckBox(app, text="Entrada", variable=checkVar1, onvalue="on",
+                                              offvalue="off", fg_color="white")
+  checkBoxEntrada.place(x=330, y=40)
+  checkBoxSaida = customtkinter.CTkCheckBox(app, text="Saida", variable=checkVar2, onvalue="on",
+                                            offvalue="off", fg_color="white")
+  checkBoxSaida.place(x=330, y=70)
+
+
+
+
+def lerPresenças():
+  caminho="AED git/Ficha10/"
+  f = open(caminho+"presenças.txt", "r")
+  limpar=textboxNotas.delete("0.0", "end")
+  lines = f.readlines()
+  f.close()
+  for line in lines: 
+      textboxNotas.insert("end", line)
+
 
 def fecharAplicacao():
-    print("Fechar Aplicação")
-    app.destroy()
-    
+  #Formatar messagebox
+    mensagem = CTkMessagebox.CTkMessagebox(title="Sair da Aplicação?",
+                                 message="Deseja sair da aplicação?",
+                                   option_1="Sim", option_2="Não",
+                                     option_3="Cancelar")
+    resposta = mensagem.get()
+    if resposta == "Sim":
+        app.destroy()
+#-------------------#
 
 #Abrir app
 app = customtkinter.CTk()
 app.title("My Notepad")
+#-------------------#
 
 #Resoluçao
 appwidth = 1000
@@ -32,12 +171,7 @@ y = (screenHeight/2) - (appheight/2)
 app.geometry(f"{appwidth}x{appheight}+{int(x)}+{int(y)}")
 app.resizable(False,False)
 app.configure(fg_color = "black")
-
-
 #-------------------#
-
-
-
 
 
 
@@ -51,40 +185,40 @@ imgSair = ImageTk.PhotoImage(file="images/" + "icoOp4.png")
 
 imgPresencas = ImageTk.PhotoImage(file="images/" + "presencas.png")
 
+imgLupa = ImageTk.PhotoImage(file="images/" + "lupa.png")
+
 #-------------------#
 
 #Labels
-labelPresencas = customtkinter.CTkLabel(app, text="" , width=750, height=500, bg_color="black",
+labelPresencas = customtkinter.CTkLabel(app, text="" , width=750, height=500,
                                         image=imgPresencas)
-
-
+labelPresencas.place(x=250, y=0)
 #-------------------#
 
 
-#Frame
 
-frame1 = customtkinter.CTkFrame(app, width=750, height=500, bg_color="black")
-frame1.place(x=250, y=0)
 
-#-------------------#
+
+
+
+
 #Buttons
 buttonGerir = customtkinter.CTkButton(app, text="Gerir Presenças",text_color="white",
                                       fg_color="blue", width=230, height=120,
-                                       image=imgConsultar, command="gerirPresenças",
+                                       image=imgConsultar, command=gerirPresenças,
                                          font=("Helvitica",14 ))
 buttonGerir.place(x=20, y=30)
 
 buttonConsultar = customtkinter.CTkButton(app, text="Consultar Presenças",text_color="white",
                                           fg_color="blue", width=230, height=120, image=imgGerir,
-                                            command="consultarPresenças", font=("Helvitica",14 ))
+                                            command=consultarPresenças, font=("Helvitica",14 ))
 buttonConsultar.place(x=20, y=170)
 
 buttonSair = customtkinter.CTkButton(app, text="Sair App", text_color="white",
                                      fg_color="blue", width=230, height=120,
-                                       image=imgSair, command="fecharAplicacao",
+                                       image=imgSair, command=fecharAplicacao,
                                          font=("Helvitica",14 ))
 buttonSair.place(x=20, y=310)
-
 #-------------------#
 
 

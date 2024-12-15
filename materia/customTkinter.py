@@ -10,3 +10,10 @@ tab3 = tabview.add("Tab 3")
 tabview.set("Tab 1")
 
 #--------------------------------------------
+
+
+
+#Frame
+frame1 = customtkinter.CTkFrame(app, width=750, height=500, bg_color="black")
+frame1.place(x=250, y=0)
+#-------------------#
