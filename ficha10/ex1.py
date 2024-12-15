@@ -31,13 +31,42 @@ x = (screenWidth/2) - (appwidth/2)
 y = (screenHeight/2) - (appheight/2)
 app.geometry(f"{appwidth}x{appheight}+{int(x)}+{int(y)}")
 app.resizable(False,False)
-app.configure(fg_color = "white")
+app.configure(fg_color = "black")
+
+
+#-------------------#
+
+
+
+
+
+
+
+#Variaveis para imagens
+imgGerir = ImageTk.PhotoImage(file="images/" + "icoOp1.png")
+
+imgConsultar = ImageTk.PhotoImage(file="images/" + "icoOp2.png")
+
+imgSair = ImageTk.PhotoImage(file="images/" + "icoOp4.png")
+
+imgPresencas = ImageTk.PhotoImage(file="images/" + "presencas.png")
+
+#-------------------#
+
+#Labels
+labelPresencas = customtkinter.CTkLabel(app, text="" , width=750, height=500, bg_color="black",
+                                        image=imgPresencas)
+
+
+#-------------------#
+
+
+#Frame
 
 frame1 = customtkinter.CTkFrame(app, width=750, height=500, bg_color="black")
-frame1.place(x=50, y=50)
+frame1.place(x=250, y=0)
 
-
-
+#-------------------#
 #Buttons
 buttonGerir = customtkinter.CTkButton(app, text="Gerir Presenças",text_color="white",
                                       fg_color="blue", width=230, height=120,
@@ -56,14 +85,7 @@ buttonSair = customtkinter.CTkButton(app, text="Sair App", text_color="white",
                                          font=("Helvitica",14 ))
 buttonSair.place(x=20, y=310)
 
+#-------------------#
 
-#Variaveis para imagens
-imgGerir = ImageTk.PhotoImage(file="Ficha10/pasta/images/" + "icoOp1.png")
-
-imgConsultar = ImageTk.PhotoImage(file="Ficha10/pasta/images/" + "icoOp2.png")
-
-imgSair = ImageTk.PhotoImage(file="Ficha10/pasta/images/" + "icoOp4.png")
-
-imgPresencas = ImageTk.PhotoImage(file="Ficha10/pasta/images/" + "presencas.png")
 
 app.mainloop()
