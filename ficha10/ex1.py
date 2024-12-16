@@ -33,9 +33,23 @@ def gerirPresenças():
 
 
 
-  #Textbox
-  textboxNotas = customtkinter.CTkTextbox(app, width=300, height=300, border_color="grey")
-  textboxNotas.place(x=675, y=80)
+  frameTree = customtkinter.CTkFrame(frameGerir, width = 320, height = 300)
+  frameTree.place(x=400, y=70)
+
+  # TreeView para consulta de movimentos
+  treeConsulta = ttk.Treeview(frameTree, height = 16, selectmode = "browse", columns = ("Número", "Data", "Hora", "Movimento"), show = "headings")
+
+  treeConsulta.column("Número", width = 80, anchor="c")
+  treeConsulta.column("Data", width = 80, anchor="c")            # C - center
+  treeConsulta.column("Hora", width = 80, anchor="c")            # E - direita
+  treeConsulta.column("Movimento", width = 80, anchor="c")       # W - esquerda
+
+  treeConsulta.heading("Número", text = "Número")
+  treeConsulta.heading("Data", text = "Data")
+  treeConsulta.heading("Hora", text = "Hora")
+  treeConsulta.heading("Movimento", text = "Movimento")
+  treeConsulta.pack()
+
 
   #Button
   buttonLer = customtkinter.CTkButton(frameGerir, text="Ler Ficheiro",
@@ -61,76 +75,71 @@ def gerirPresenças():
   checkboxEntrada.place(x=500, y=120)
   checkboxSaida.place(x=500, y=170)
 
-  #tree
-  frameTree = customtkinter.CTkFrame(frameConsultar, width = 690, height = 500)
-  frameTree.place(x=20, y=170)
-
-  # TreeView para consulta de movimentos
-  tree = ttk.Treeview(frameTree, height = 16, selectmode = "browse", columns = ("Número", "Data", "Hora", "Movimento"), show = "headings")
-
-  tree.column("Número", width = 160,  anchor="c")
-  tree.column("Data", width = 160,     anchor="c")        # C- center
-  tree.column("Hora", width = 160,     anchor="c")        # E - direita
-  tree.column("Movimento", width = 200, anchor="c")       # W- esquerda
-  tree.heading("Número", text = "Número")
-  tree.heading("Data", text = "Data")
-  tree.heading("Hora", text = "Hora")
-  tree.heading("Movimento", text = "Movimento")
-  tree.place(x= 70, y=15)
-
-  # Scrollbar Vertical
-  verscrlbar = ttk.Scrollbar(frameTree, orient ="vertical", command = tree.yview)
-  # CallinPlace da Scrollbar
-  verscrlbar.place(x=735, y=16, height=330)
-  # Adicionar scrollbar à  treeview
-  tree.configure(yscrollcommand = verscrlbar.set)
 
 
 
 
 
 def consultarPresenças():
-  frameGerir = customtkinter.CTkFrame(app, width=750, height=500, bg_color="grey")
-  frameGerir.place(x=250)
+    
+    # Frame
+    frameConsultar = customtkinter.CTkFrame(app, width=750, height=500, fg_color="black")
+    frameConsultar.place(x=250)
 
-  frameMovimentos = customtkinter.CTkFrame(app, width=220, height=100, fg_color="black")
-  frameMovimentos.place(x=270)
+    frameMovimento = customtkinter.CTkFrame(frameConsultar, width=220, height=100, fg_color="grey")
+    frameMovimento.place(x=20)
 
-  frameNumero = customtkinter.CTkFrame(app, width=220, height=100, fg_color="black")
-  frameNumero.place(x=500)
+    frameNumero = customtkinter.CTkFrame(frameConsultar, width=220, height=100, fg_color="grey")
+    frameNumero.place(x=250)
 
-#Labels
-  label3 = customtkinter.CTkLabel(app, text="Tipo de movimento:", font= ("Arial", 12),
-                                  fg_color="transparent", text_color="white");
-  label3.place(x=330, y=10)
+    # Button
+    buttonMovimento = customtkinter.CTkButton(frameConsultar, text="", image=imgLupa, width=220, height=100)
+    buttonMovimento.place(x=480)
 
-  label4 = customtkinter.CTkLabel(app, text="Número de estudante:", font= ("Arial", 12),
-                                  fg_color="transparent", text_color="white");
-  label4.place(x=550, y=10)
+    # CheckBox
+    checkVar1 = customtkinter.StringVar(value="on")
+    checkVar2 = customtkinter.StringVar(value="off")
 
-  checkVar1 = customtkinter.StringVar(value="on")
-  checkVar2 = customtkinter.StringVar(value="off")
+    checkboxEntrada = customtkinter.CTkCheckBox(frameConsultar, text="Entrada", variable=checkVar1, onvalue="on", offvalue="off", bg_color="grey")
+    checkboxSaida = customtkinter.CTkCheckBox(frameConsultar, text="Saida", variable=checkVar2, onvalue="on", offvalue="off", bg_color="grey")
 
+    checkboxEntrada.place(x=40, y=40)
+    checkboxSaida.place(x=40, y=70)
 
-  #caixas de texto
-  entryNum = customtkinter.CTkEntry(app, placeholder_text="Número de estudante", width=150);
-  entryNum.place(x=530, y=60)
+    # Label
+    labelMovimento = customtkinter.CTkLabel(frameConsultar, text="Tipo do Movimento", fg_color="grey", bg_color="grey", text_color="white", font=("Helvitica",14))
+    labelMovimento.place(x=40, y=10)
 
-  #button
-  buttonMovimento = customtkinter.CTkButton(app, text="", image=imgLupa, width=220, height=100)
-  buttonMovimento.place(x=730)
+    labelNumero = customtkinter.CTkLabel(frameConsultar, text="Numero", fg_color="grey", text_color="white", font=("Helvitica",14))
+    labelNumero.place(x=330, y=10)
 
+    # EntryBox
+    entryNumero = customtkinter.CTkEntry(frameConsultar, fg_color="white", width=150, text_color="black")
+    entryNumero.place(x=280, y=50)
 
+    # Treeview
+    frameTree = customtkinter.CTkFrame(frameConsultar, width = 690, height = 500)
+    frameTree.place(x=20, y=170)
 
-#CheckBox
-  checkBoxEntrada = customtkinter.CTkCheckBox(app, text="Entrada", variable=checkVar1, onvalue="on",
-                                              offvalue="off", fg_color="white")
-  checkBoxEntrada.place(x=330, y=40)
-  checkBoxSaida = customtkinter.CTkCheckBox(app, text="Saida", variable=checkVar2, onvalue="on",
-                                            offvalue="off", fg_color="white")
-  checkBoxSaida.place(x=330, y=70)
+    # TreeView para consulta de movimentos
+    tree = ttk.Treeview(frameTree, height = 16, selectmode = "browse", columns = ("Número", "Data", "Hora", "Movimento"), show = "headings")
 
+    tree.column("Número", width = 160,  anchor="c")
+    tree.column("Data", width = 160,     anchor="c")        # C- center
+    tree.column("Hora", width = 160,     anchor="c")        # E - direita
+    tree.column("Movimento", width = 200, anchor="c")       # W- esquerda
+    tree.heading("Número", text = "Número")
+    tree.heading("Data", text = "Data")
+    tree.heading("Hora", text = "Hora")
+    tree.heading("Movimento", text = "Movimento")
+    tree.place(x= 5, y=5)
 
+    # Scrollbar Vertical
+    verscrlbar = ttk.Scrollbar(frameTree, orient ="vertical", command = tree.yview)
+    # CallinPlace da Scrollbar
+    verscrlbar.place(x=735, y=16, height=330)
+    # Adicionar scrollbar à  treeview
+    tree.configure(yscrollcommand = verscrlbar.set)
 
 
 def lerPresenças():
