@@ -81,6 +81,21 @@ def gerirPresenças():
 
 
 def consultarPresenças():
+
+  
+  
+    ficheiroMes = f"presenças.txt"
+    if not os.path.exists(presenças.txt):
+        CTkMessagebox.CTkMessagebox(title="Aviso", message="Não existe ficheiro para este mês")
+        return
+
+    #vai ler o ficheiro e separar as variaveis
+    with open(ficheiroMes, "r") as file:
+        for linha in file:
+            Número, Data, Hora, Movimento = linha.strip().split(";")
+
+            if rbState.get() == "Todas" or rbState.get() == Estado:
+                tree.insert("", "end", values=(Número, Data, Hora, Movimento))
     
     # Frame
     frameConsultar = customtkinter.CTkFrame(app, width=750, height=500, fg_color="black")
@@ -140,6 +155,8 @@ def consultarPresenças():
     verscrlbar.place(x=735, y=16, height=330)
     # Adicionar scrollbar à  treeview
     tree.configure(yscrollcommand = verscrlbar.set)
+
+
 
 
 def lerPresenças():
