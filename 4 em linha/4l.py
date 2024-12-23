@@ -52,18 +52,24 @@ jogador = 1
 
 while True:
     mostrar_tabuleiro()
-    print(f"Vez do Jogador {jogador} (X)" if jogador == 1 else f"Vez do Jogador {jogador} (O)")
+    simbolo = "X" if jogador == 1 else "O"
+    print(f"Vez do Jogador {jogador} ({simbolo})")
+    
     try:
         coluna = int(input("Escolha uma coluna (0-6): "))
-        if coluna < 0 or coluna > 6:
-            print("Coluna inválida. Escolha entre 0 e 6.")
-            continue
-        if not jogar(coluna, "X" if jogador == 1 else "O"):
-            print("Coluna cheia! Escolha outra.")
-            continue
+        if 0 <= coluna <= 6:
+            if jogar(coluna, simbolo):
+                if verificar_horizontal() or verificar_vertical() or verificar_diagonal():
+                    mostrar_tabuleiro()
+                    print(f"Jogador {jogador} venceu!")
+                    break
+            else:
+                print("Coluna cheia! Escolha outra.")
+        else:
+            print("Coluna inválida. Escolha um número entre 0 e 6.")
     except ValueError:
-        print("Por favor, insira um número.")
-        continue
+        print("Entrada inválida. Por favor, insira um número.")
+
 
     if verificar_horizontal() or verificar_vertical() or verificar_diagonal():
         mostrar_tabuleiro()
